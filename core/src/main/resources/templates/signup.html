@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head
+	th:replace="fragments/header :: html-head('Signup for Group Meetings')">
+</head>
+<body>
+	<div th:replace="fragments/header :: navbar">
+		<!-- ============================================================================ -->
+		<!-- This content is only used for static prototyping purposes (natural templates)-->
+		<!-- and is therefore entirely optional, as this markup fragment will be included -->
+		<!-- from "fragments/header.html" at runtime.                                     -->
+		<!-- ============================================================================ -->
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Static header</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#">Home</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<main role="main" class="container">
+	<h1>Als neuer Benutzer registrieren</h1>
+	<form th:object="${user}">
+		<div class='row'>
+			<div class='col-sm-12'>
+				<div class="form-group required">
+					<label for="username">Benutzername</label>
+					 <input name="userName" required="required"
+						class="form-control" type="text" th:field="*{userName}" />
+				</div>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-sm-6'>
+				<div class="form-group required">
+					<label for="password">Passwort</label> 
+					<input name="password" required="required"
+						class="form-control" type="password" th:field="*{password}" />
+				</div>
+			</div>
+			<div class='col-sm-6'>
+				<div class="form-group required">
+					<label for="passwordRepeat">Passwort Wiederholen</label>
+					 <input
+						name="passwordRepeat" required="required" class="form-control" type="password"
+						th:field="*{passwordRepeat}" />
+				</div>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-sm-12'>
+				<div class="form-group required">
+					<label for="email">eMail-Adresse</label>
+					 <input	 class="form-control" type="email" required="required"
+						th:field="*{eMailAddress}" />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+		<div class='col-sm-12'>
+		<label>Geburstag</label>
+		</div>
+			<div class="col-sm-4">
+			<div class="form-group">
+					<label for="birthdateDay">Tag</label> 
+					<select
+						 class="form-control" type="password"
+						th:field="*{birthDay}" >
+						<option value=""></option>
+						<option th:each="day:${#numbers.sequence(1,31)}" th:value="${day}" th:text="${day}">						
+						</option>
+						
+						</select>
+				</div>
+			</div>
+		
+			<div class="col-sm-4">
+			<div class="form-group">
+					<label for="birthdateMonth">Monat</label> 
+					<select class="form-control"
+						th:field="*{birthMonth}" >
+						<option value=""></option>
+						<option th:each="month:${#numbers.sequence(1,12)}" th:value="${month}"
+						 th:text="${T(org.groupmeetings.utils.DateFunctions).getMonthForNumber(month)}">
+					
+						</option>
+						
+						</select>
+				</div>
+			</div>
+
+			<div class="col-sm-4">
+			<div class="form-group">
+					<label for="birthYear">Jahr</label> 
+					<select
+						 class="form-control" 
+						th:field="*{birthYear}" >
+						<option value=""></option>
+						<option th:each="year:${#numbers.sequence(maxYear - 70,maxYear)}" 
+						th:value="${year}" th:text="${year}" th:selected="${year == (maxYear - 20)}">
+						
+						</option>
+						
+						</select>
+				</div>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-sm-12'>
+				<div class="form-group">
+					<label for="interests">Interessen</label> 
+					<textarea	 class="form-control" 
+						th:field="*{interests}" >
+						</textarea>
+				</div>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-sm-12'>
+				<div class="form-group">
+					<label for="addressStreet">Straße</label>
+					 <input	 class="form-control" type="text"
+						th:field="*{addressStreet}" />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+			<div class="form-group">
+					<label for="addressZipCode">Postleitzahl</label>
+					 <input	 class="form-control" type="text"
+						th:field="*{addressZipCode}" />
+				</div>
+			</div>
+			<div class="col-sm-8">
+			<div class="form-group">
+					<label for="addressCity">Ort / Stadt</label>
+					 <input	 class="form-control" type="text"
+						th:field="*{addressCity}" />
+				</div>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-sm-12'>
+				<div class="form-group">
+					<label for="email">Land</label> 
+					<select		class="form-control" name="addressCountry" >
+						<option  
+						th:each="country : ${@localeFunctions.getAllCountries().entrySet()}"
+						 th:value="${country.key}" th:text="${country.value}"
+						 th:selected="${#ctx.addressCountry == country.key or (#ctx.addressCountry == null and country.key=='DE')}"
+						 >
+						 
+						 </option>
+						
+						</select>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+
+
+
+	</form>
+	</main>
+	<div th:replace="fragments/header :: footer">&copy;
+		${#dates.format(#dates.createNow(), 'yyyy')} Achim Klotz</div>
+
+</body>
+</html>

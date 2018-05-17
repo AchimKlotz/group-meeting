@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head th:replace="fragments/header :: html-head('Welcome to Group Meetings')">
+
+
+</head>
+<body>
+	<div th:replace="fragments/header :: navbar">
+		
+	</div>
+	<main role="main" class="container">
+	<h1>Welcome</h1>
+	<p>Welcome to the Groups Meeting site Get started quickly by
+		signing up.</p>
+	<p>
+		<a href="/signup" th:href="@{/signup}"
+			class="btn btn-large btn-success">Sign up</a>
+	</p>
+	</div>
+	</main>
+	<div th:replace="fragments/header :: footer">&copy;
+		${#dates.format(#dates.createNow(), 'yyyy')} Achim Klotz</div>
+
+</body>
+</html>
