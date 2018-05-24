@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head th:replace="fragments/header :: html-head('User Profile')">
+
+
+</head>
+<body>
+	<div th:replace="fragments/header :: navbar">
+		<!-- ============================================================================ -->
+		<!-- This content is only used for static prototyping purposes (natural templates)-->
+		<!-- and is therefore entirely optional, as this markup fragment will be included -->
+		<!-- from "fragments/header.html" at runtime.                                     -->
+		<!-- ============================================================================ -->
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Static header</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#">Home</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<main role="main" class="container">
+	<div th:replace="fragments/message :: message"></div>
+	<h1>Gruppe Bearbeiten</h1>
+	
+
+	<form th:object="${group}" action="#" th:action="@{/group/create}"
+		method="post">
+
+		<div class='row'>
+			<div class='col-sm-12'>
+				<div class="form-group required">
+					<label for="title">Name</label> <input class="form-control "
+						type="text" th:field="*{name}" th:errorClass="is-invalid" />
+					<div  th:errors="*{name}"
+						class="invalid-feedback" ></div>
+				</div>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-sm-12'>
+				<div class="form-group required">
+					<label for="url">URL</label>
+					<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text">http://localhost:8080/</span></div>
+     <input
+							class="form-control-plaintext"  style="display:inline;width:initial;padding-left:10px" type="text" th:field="*{url}"
+							th:errorClass="is-invalid" />
+							<div  th:errors="*{url}"
+						class="invalid-feedback"></div>
+					</div>
+
+					
+				</div>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-sm-12'>
+				<div class="form-group required">
+					<label for="motto">Motto</label> <input class="form-control"
+						type="text" th:field="*{motto}" th:errorClass="is-invalid" />
+					<div  th:errors="*{motto}"
+						class="invalid-feedback"></div>
+				</div>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-sm-12'>
+				<div class="form-group required">
+					<label for="description">Beschreibung</label>
+					<textarea class="form-control" th:field="*{description}"
+						th:errorClass="is-invalid" />
+					<div 						th:errors="*{description}" class="invalid-feedback"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<input type="submit" class="btn btn-info"
+					value="Änderungen Speichern">
+			</div>
+		</div>
+	</form>
+	</main>
+	<div th:replace="fragments/header :: footer">&copy;
+		${#dates.format(#dates.createNow(), 'yyyy')} Achim Klotz</div>
+
+</body>
+</html>
